@@ -252,7 +252,7 @@ def resulta():
             pred = pred[0].argmax()
             print(pred)
             # pb.push_sms(pb.devices[0],str(phone), 'Hello {},\nYour Alzheimer test results are ready.\nRESULT: {}'.format(firstname,['NonDemented','VeryMildDemented','MildDemented','ModerateDemented'][pred]))
-            return render_template('resulta.html', filename=filename, fn=firstname, ln=lastname, age=age, r=0, gender=gender)
+            return render_template('resulta.html', filename=filename, fn=firstname, ln=lastname, age=age, r=pred, gender=gender)
 
         else:
             flash('Allowed image types are - png, jpg, jpeg')
