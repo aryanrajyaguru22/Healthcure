@@ -1,248 +1,267 @@
 <!doctype html>
 <html lang="en">
 
-<style>
-    .headstyle {
-        color: rgb(255, 255, 255);
-        font-variant: petite-caps;
-        background-color: rgb(0, 0, 0, 0.8);
-        margin-bottom: 0px
-    }
-
-    .divstyle {
-        border-radius: 10px 10px 10px 10px;
-        margin-left: 1px;
-        margin-right: 1px
-    }
-</style>
-
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
-    <title>HealthCure</title>
+    <title>HealthCure - An AI Medical Solution</title>
+
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --light-gray: #f8f9fa;
+            --dark-gray: #343a40;
+            --text-color: #212529;
+        }
+
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--light-gray);
+            color: var(--text-color);
+            scroll-behavior: smooth;
+        }
+
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.8) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-section {
+            background: linear-gradient(-45deg, #0d6efd, #00c6ff, #ee7752, #e73c7e);
+            background-size: 400% 400%;
+            animation: gradient-animation 15s ease infinite;
+            padding: 120px 0;
+            color: white;
+            text-align: center;
+        }
+
+        .hero-section h1 {
+            font-size: 3.8rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-section p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 1.5rem auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-top: 5rem;
+            margin-bottom: 4rem;
+            font-weight: 700;
+            color: var(--dark-gray);
+            font-size: 2.5rem;
+        }
+        
+        .service-card {
+            background-color: #ffffff;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            padding: 2.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .service-card a {
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        .service-card img {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 1.5rem;
+            object-fit: contain;
+            transition: transform 0.3s;
+        }
+        
+        .service-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .service-card h5 {
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .info-section {
+            padding: 5rem 0;
+            overflow: hidden; /* Important for animations */
+        }
+        
+        .info-section.alt-bg {
+            background-color: #ffffff;
+        }
+
+        .info-section img {
+            max-width: 100%;
+            border-radius: 20px;
+             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .footer {
+            background-color: var(--dark-gray);
+            color: white;
+            padding: 2.5rem 0;
+            margin-top: 5rem;
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
 
 <body>
-
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">HealthCure</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="/"><b>HealthCure</b></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
+                data-bs-target="#navbarSupportedContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-
-                    <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="/covid">Covid</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="/braintumor">Brain Tumor</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="/breastcancer">Breast Cancer</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="/alzheimer">Alzheimer</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="/diabetes">Diabetes</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="/pneumonia">Pneumonia</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="/heartdisease">Heart Disease</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="/covid">Covid</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/braintumor">Brain Tumor</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/diabetes">Diabetes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/heartdisease">Heart Disease</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <h1 class='text-center py-3'
-            style="font-variant: petite-caps;margin-bottom:0px">
-            <b><i>HealthCure - an all in one medical solution</i></b>
-    </h1>
-
-    <div class="row" style="font-size: 20px;padding: 0px 50px 50px 50px;">
-        <p><b>HealthCure</b> is an all in one medical solution app which brings 7 Disease
-            Detections like Covid Detection, Brain Tumor Detection, Breast Cancer Detection, Alzheimer Detection,
-            Diabetes Detection, Pneumonia Detection, and Heart Disease Detection under one platform.</p>
-
-        <h2 class='text-center py-3'
-            style="color: rgb(255, 255, 255);font-variant: petite-caps;background-color: rgb(0, 0, 0);margin-bottom:0px">
-            <b><i>7 Disease Detections</i></b>
-        </h2>
-
-        <div class='divstyle' style='margin:40px 20px 60px 20px'>
-            <div class="row py-3">
-                <div class="col md-3">
-                    <h3 class='text-center py-3 headstyle' style="font-size: 18px;"><b>Covid Detection</b></h3>
-                    <a href="./covid"><img src="../static/icons/covid.jpg" class="img-fluid mx-auto d-block"></a>
-                </div>
-                <div class="col md-3">
-                    <h3 class='text-center py-3 headstyle' style="font-size: 18px;"><b>Brain Tumor Detection</b></h3>
-                    <a href="./braintumor"><img src="../static/icons/braintumor.png"
-                            class="img-fluid mx-auto d-block"></a>
-                </div>
-                <div class="col md-3">
-                    <h3 class='text-center py-3 headstyle' style="font-size: 18px;"><b>Breast Cancer Detection</b></h3>
-                    <a href="./breastcancer"><img src="../static/icons/breastcancer.png"
-                            class="img-fluid mx-auto d-block"></a>
-                </div>
-                <div class="col md-3">
-                    <h3 class='text-center py-3 headstyle' style="font-size: 18px;"><b>Alzheimer Detection</b></h3>
-                    <a href="./alzheimer"><img src="../static/icons/alzheimer.png"
-                            class="img-fluid mx-auto d-block"></a>
-                </div>
-            </div>
+    <div class="hero-section">
+        <div class="container">
+            <h1>Welcome to HealthCure</h1>
+            <p>An all-in-one medical solution leveraging Artificial Intelligence to provide early detection for multiple diseases. Upload your medical data to get started.</p>
         </div>
+    </div>
 
-        <div class='divstyle' style='margin:40px 20px 60px 20px'>
-            <div class="row py-3">
-                <div class="col md-3">
-                    <h3 class='text-center py-3 headstyle' style="font-size: 18px;"><b>Diabetes Detection</b></h3>
-                    <a href="./diabetes"><img src="../static/icons/diabetes.png" class="img-fluid mx-auto d-block"></a>
-                </div>
-                <div class="col md-3">
-                    <h3 class='text-center py-3 headstyle' style="font-size: 18px;"><b>Pneumonia Detection</b></h3>
-                    <a href="./pneumonia"><img src="../static/icons/pneumonia.png"
-                            class="img-fluid mx-auto d-block"></a>
-                </div>
-                <div class="col md-3">
-                    <h3 class='text-center py-3 headstyle' style="font-size: 18px;"><b>Heart Disease Detection</b></h3>
-                    <a href="./heartdisease"><img src="../static/icons/heartdisease.png"
-                            class="img-fluid mx-auto d-block"></a>
-                </div>
-                <div class="col md-3">
+    <div class="container">
+        <h2 class="section-title">AI-Powered Disease Detection</h2>
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-4 col-sm-6 fade-in">
+                <div class="service-card">
+                    <a href="./covid">
+                        <img src="../static/icons/covid.png" alt="Covid Icon">
+                        <h5>Covid Detection</h5>
+                    </a>
                 </div>
             </div>
-        </div>
-
-
-        <h3 class='text-center py-3'
-            style="color: rgb(255, 255, 255);font-variant: petite-caps;background-color: rgb(0, 0, 0);margin-bottom:0px">
-            <b><i>AI in HealthCare</i></b>
-        </h3>
-        <div class="row py-3"
-            style='margin-bottom: 30px;'>
-            <div class="col">
-                <p class="text-left" style='font-size:18px'>
-                    The artificial intelligence (AI) technologies becoming ever present in modern business and
-                    everyday
-                    life is
-                    also steadily being applied to healthcare. The use of artificial intelligence in healthcare has
-                    the
-                    potential to assist healthcare providers in many aspects of patient care and administrative
-                    processes. Most
-                    AI and healthcare technologies have strong relevance to the healthcare field, but the tactics
-                    they
-                    support
-                    can vary significantly. And while some articles on artificial intelligence in healthcare suggest
-                    that the
-                    use of artificial intelligence in healthcare can perform just as well or better than humans at
-                    certain
-                    procedures, such as diagnosing disease, it will be a significant number of years before AI in
-                    healthcare
-                    replaces humans for a broad range of medical tasks.
-                </p>
+            <div class="col-lg-3 col-md-4 col-sm-6 fade-in">
+                <div class="service-card">
+                    <a href="./braintumor">
+                        <img src="../static/icons/braintumor.png" alt="Brain Tumor Icon">
+                        <h5>Brain Tumor</h5>
+                    </a>
+                </div>
             </div>
-            <div class="col">
-                <img src="../static/healthcure.png" class="img-fluid rounded mx-auto d-block" alt="...">
+            <div class="col-lg-3 col-md-4 col-sm-6 fade-in">
+                <div class="service-card">
+                    <a href="./diabetes">
+                        <img src="../static/icons/diabetes.png" alt="Diabetes Icon">
+                        <h5>Diabetes</h5>
+                    </a>
+                </div>
             </div>
-        </div>
-
-        <h3 class='text-center py-3'
-            style="color: rgb(255, 255, 255);font-variant: petite-caps;background-color: rgb(0, 0, 0);margin-bottom:0px">
-            <b><i>Machine Learning</i></b>
-        </h3>
-        <div class="row py-3" style='margin-bottom: 30px'>
-            <div class="col">
-                <p class="text-left" style='font-size:18px'>
-                    Machine learning is one of the most common forms of artificial intelligence in healthcare. It is
-                    a
-                    broad technique at the core of many approaches to AI and healthcare technology and there are
-                    many
-                    versions of it.
-                    Using artificial intelligence in healthcare, the most widespread utilization of traditional
-                    machine
-                    learning is precision medicine. Being able to predict what treatment procedures are likely to be
-                    successful
-                    with patients based on their make-up and the treatment framework is a huge leap forward for many
-                    healthcare organizations. The majority of AI in healthcare that uses machine learning and
-                    precision
-                    medicine applications require data for training, for which the end result is known. This is
-                    known as
-                    supervised learning.
-                </p>
-            </div>
-            <div class="col">
-                <img src="../static/ml.png" class="img-fluid rounded mx-auto d-block" alt="...">
-            </div>
-        </div>
-
-
-        <h3 class='text-center py-3'
-            style="color: rgb(255, 255, 255);font-variant: petite-caps;background-color: rgb(0, 0, 0);margin-bottom:0px">
-            <b><i>Natural Language Processing</i></b>
-        </h3>
-        <div class="row py-3" style='margin-bottom: 30px'>
-            <div class="col">
-                <p class="text-left" style='font-size:18px'>
-                    Making sense of human language has been a goal of artificial intelligence and healthcare
-                    technology
-                    for over
-                    50 years. Most NLP systems include forms of speech recognition or text analysis and then
-                    translation. A
-                    common use of artificial intelligence in healthcare involves NLP applications that can
-                    understand
-                    and
-                    classify clinical documentation. NLP systems can analyze unstructured clinical notes on
-                    patients,
-                    giving
-                    incredible insight into understanding quality, improving methods, and better results for
-                    patients.
-                </p>
-            </div>
-            <div class="col">
-                <img src="../static/nlp.jpg" class="img-fluid rounded mx-auto d-block" style='width:auto; height:300px'
-                    alt="...">
+            <div class="col-lg-3 col-md-4 col-sm-6 fade-in">
+                <div class="service-card">
+                    <a href="./heartdisease">
+                        <img src="../static/icons/heartdisease.png" alt="Heart Disease Icon">
+                        <h5>Heart Disease</h5>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 
+    <div class="info-section alt-bg">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 fade-in">
+                    <h3>AI in HealthCure</h3>
+                    <p>In today’s fast-paced healthcare environment, early detection of diseases is crucial. HealthCure is an AI-based diagnostic tool designed to detect diseases like heart disease, diabetes, and hypertension. It provides fast, accurate predictions using machine learning models and bridges the gap between clinical data and informed decision-making.</p>
+                </div>
+                <div class="col-md-6 fade-in">
+                    <img src="../static/healthcure.png" alt="AI in Healthcare">
+                </div>
+            </div>
+        </div>
+    </div>
 
-
-
-    <footer class='text-light bg-dark position-relative '>
-        <p class='text-center py-1 my-0'>
-            Made with ❤ by Abhishek
-        </p>
+    <div class="info-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 fade-in">
+                    <img src="../static/background.png" alt="Why HealthCure">
+                </div>
+                <div class="col-md-6 fade-in">
+                    <h3>Why HealthCure</h3>
+                    <p>Provide Fast, AI – driven results using images or Health Data. Accessible via a Simple web Interface, even for non-tech users. Empowerment for Patients & Professionals. Efficiency & Scalability for Healthcare Systems. Trust, Security, and Continuous Improvement.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="container text-center">
+            <p class="my-0">Made with ❤ by LDRP-ITR</p>
+        </div>
     </footer>
 
+    <script>
+        // JavaScript for scroll animations
+        document.addEventListener("DOMContentLoaded", function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
 
-
-
 </body>
-
 </html>
