@@ -1,37 +1,44 @@
-from flask import Flask, flash, request, redirect, url_for, render_template
-import urllib.request
 import os
-from werkzeug.utils import secure_filename
-import cv2
 import pickle
+import urllib.request
+
+import cv2
 import imutils
-import sklearn
-from tensorflow.keras.models import load_model
-# from pushbullet import PushBullet
 import joblib
 import numpy as np
+import sklearn
+from flask import Flask, flash, redirect, render_template, request, url_for
 from tensorflow.keras.applications.vgg16 import preprocess_input
+from tensorflow.keras.models import load_model
+from werkzeug.utils import secure_filename
+
+# from pushbullet import PushBullet
 
 
 # Loading Models
 covid_model = load_model('models/covid.h5')
 braintumor_model = load_model('models/braintumor.h5')
+alzheimer_model = load_model('models/alzheimer_model.h5')
 diabetes_model = pickle.load(open('models/diabetes.sav', 'rb'))
 heart_model = pickle.load(open('models/heart_disease.pickle.dat', "rb"))
+pneumonia_model = load_model('models/pneumonia_model.h5')
+breastcancer_model = joblib.load('models/cancer_model.pkl')
 
 # Configuring Flask
 UPLOAD_FOLDER = 'static/uploads'
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.secret_key = "secret key"
 
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 ############################################# BRAIN TUMOR FUNCTIONS ################################################
+
 
 def preprocess_imgs(set_name, img_size):
     """
@@ -39,9 +46,10 @@ def preprocess_imgs(set_name, img_size):
     """
     set_new = []
     for img in set_name:
-        img = cv2.resize(img,dsize=img_size,interpolation=cv2.INTER_CUBIC)
+        img = cv2.resize(img, dsize=img_size, interpolation=cv2.INTER_CUBIC)
         set_new.append(preprocess_input(img))
     return np.array(set_new)
+
 
 def crop_imgs(set_name, add_pixels_value=0):
     """
@@ -79,6 +87,7 @@ def crop_imgs(set_name, add_pixels_value=0):
 
 ########################### Routing Functions ########################################
 
+
 @app.route('/')
 def home():
     return render_template('homepage.html')
@@ -89,6 +98,11 @@ def covid():
     return render_template('covid.html')
 
 
+@app.route('/breastcancer')
+def breast_cancer():
+    return render_template('breastcancer.html')
+
+
 @app.route('/braintumor')
 def brain_tumor():
     return render_template('braintumor.html')
@@ -97,6 +111,16 @@ def brain_tumor():
 @app.route('/diabetes')
 def diabetes():
     return render_template('diabetes.html')
+
+
+@app.route('/alzheimer')
+def alzheimer():
+    return render_template('alzheimer.html')
+
+
+@app.route('/pneumonia')
+def pneumonia():
+    return render_template('pneumonia.html')
 
 
 @app.route('/heartdisease')
@@ -177,6 +201,8 @@ def resultd():
         email = request.form['email']
         phone = request.form['phone']
         gender = request.form['gender']
+        
+        # Get all 8 features from the form
         pregnancies = request.form['pregnancies']
         glucose = request.form['glucose']
         bloodpressure = request.form['bloodpressure']
@@ -185,10 +211,105 @@ def resultd():
         diabetespedigree = request.form['diabetespedigree']
         age = request.form['age']
         skinthickness = request.form['skin']
-        pred = diabetes_model.predict(
-            [[pregnancies, glucose, bloodpressure, skinthickness, insulin, bmi, diabetespedigree, age]])
+
+        # The model expects only 4 features.
+        to_predict_list = [
+            float(glucose),
+            float(bloodpressure),
+            float(bmi),
+            float(age)
+        ]
+        
+        pred = diabetes_model.predict([to_predict_list])
+        
+        # --- FIX: Extract the single prediction value from the array ---
+        prediction_result = pred[0]
+
         # pb.push_sms(pb.devices[0],str(phone), 'Hello {},\nYour Diabetes test results are ready.\nRESULT: {}'.format(firstname,['NEGATIVE','POSITIVE'][pred]))
-        return render_template('resultd.html', fn=firstname, ln=lastname, age=age, r=pred, gender=gender)
+        return render_template('resultd.html', fn=firstname, ln=lastname, age=age, r=prediction_result, gender=gender)
+
+
+@app.route('/resultbc', methods=['POST'])
+def resultbc():
+    if request.method == 'POST':
+        firstname = request.form['firstname']
+        lastname = request.form['lastname']
+        email = request.form['email']
+        phone = request.form['phone']
+        gender = request.form['gender']
+        age = request.form['age']
+        cpm = request.form['concave_points_mean']
+        am = request.form['area_mean']
+        rm = request.form['radius_mean']
+        pm = request.form['perimeter_mean']
+        cm = request.form['concavity_mean']
+        pred = breastcancer_model.predict(
+            np.array([cpm, am, rm, pm, cm]).reshape(1, -1))
+        # pb.push_sms(pb.devices[0],str(phone), 'Hello {},\nYour Breast Cancer test results are ready.\nRESULT: {}'.format(firstname,['NEGATIVE','POSITIVE'][pred]))
+        return render_template('resultbc.html', fn=firstname, ln=lastname, age=age, r=pred[0], gender=gender)
+
+
+@app.route('/resulta', methods=['GET', 'POST'])
+def resulta():
+    if request.method == 'POST':
+        print(request.url)
+        firstname = request.form['firstname']
+        lastname = request.form['lastname']
+        email = request.form['email']
+        phone = request.form['phone']
+        gender = request.form['gender']
+        age = request.form['age']
+        file = request.files['file']
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            flash('Image successfully uploaded and displayed below')
+            img = cv2.imread('static/uploads/'+filename)
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB) # FIX: Convert BGR to RGB
+            img = cv2.resize(img, (176, 176))
+            img = img.reshape(1, 176, 176, 3)
+            img = img/255.0
+            pred = alzheimer_model.predict(img)
+            pred = pred[0].argmax()
+            print(pred)
+            # pb.push_sms(pb.devices[0],str(phone), 'Hello {},\nYour Alzheimer test results are ready.\nRESULT: {}'.format(firstname,['NonDemented','VeryMildDemented','MildDemented','ModerateDemented'][pred]))
+            return render_template('resulta.html', filename=filename, fn=firstname, ln=lastname, age=age, r=pred, gender=gender)
+
+        else:
+            flash('Allowed image types are - png, jpg, jpeg')
+            return redirect('/')
+
+
+@app.route('/resultp', methods=['POST'])
+def resultp():
+    if request.method == 'POST':
+        firstname = request.form['firstname']
+        lastname = request.form['lastname']
+        email = request.form['email']
+        phone = request.form['phone']
+        gender = request.form['gender']
+        age = request.form['age']
+        file = request.files['file']
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            flash('Image successfully uploaded and displayed below')
+            img = cv2.imread('static/uploads/'+filename)
+            img = cv2.resize(img, (150, 150))
+            img = img.reshape(1, 150, 150, 3)
+            img = img/255.0
+            pred = pneumonia_model.predict(img)
+            if pred < 0.5:
+                pred = 0
+            else:
+                pred = 1
+            # pb.push_sms(pb.devices[0],str(phone), 'Hello {},\nYour COVID-19 test results are ready.\nRESULT: {}'.format(firstname,['POSITIVE','NEGATIVE'][pred]))
+            return render_template('resultp.html', filename=filename, fn=firstname, ln=lastname, age=age, r=pred, gender=gender)
+
+        else:
+            flash('Allowed image types are - png, jpg, jpeg')
+            return redirect(request.url)
+
 
 @app.route('/resulth', methods=['POST'])
 def resulth():
@@ -209,7 +330,7 @@ def resulth():
         pred = heart_model.predict(
             np.array([nmv, tcp, eia, thal, op, mhra, age]).reshape(1, -1))
         # pb.push_sms(pb.devices[0],str(phone), 'Hello {},\nYour Diabetes test results are ready.\nRESULT: {}'.format(firstname,['NEGATIVE','POSITIVE'][pred]))
-        return render_template('resulth.html', fn=firstname, ln=lastname, age=age, r=pred, gender=gender)
+        return render_template('resulth.html', fn=firstname, ln=lastname, age=age, r=pred[0], gender=gender)
 
 
 # No caching at all for API endpoints.
@@ -226,3 +347,4 @@ def add_header(response):
 
 if __name__ == '__main__':
     app.run(debug=True)
+

@@ -76,6 +76,10 @@
             padding: 2.5rem;
             transition: transform 0.3s, box-shadow 0.3s;
             height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         .service-card:hover {
@@ -89,8 +93,8 @@
         }
 
         .service-card img {
-            width: 200px;
-            height: 200px;
+            width: 150px; /* Adjusted for better consistency */
+            height: 150px;
             margin-bottom: 1.5rem;
             object-fit: contain;
             transition: transform 0.3s;
@@ -117,7 +121,7 @@
         .info-section img {
             max-width: 100%;
             border-radius: 20px;
-             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
         .footer {
@@ -153,6 +157,9 @@
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link" href="/covid">Covid</a></li>
                     <li class="nav-item"><a class="nav-link" href="/braintumor">Brain Tumor</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/breastcancer">Breast Cancer</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/alzheimer">Alzheimer's</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pneumonia">Pneumonia</a></li>
                     <li class="nav-item"><a class="nav-link" href="/diabetes">Diabetes</a></li>
                     <li class="nav-item"><a class="nav-link" href="/heartdisease">Heart Disease</a></li>
                 </ul>
@@ -169,7 +176,7 @@
 
     <div class="container">
         <h2 class="section-title">AI-Powered Disease Detection</h2>
-        <div class="row g-4">
+        <div class="row g-4 justify-content-center">
             <div class="col-lg-3 col-md-4 col-sm-6 fade-in">
                 <div class="service-card">
                     <a href="./covid">
@@ -183,6 +190,30 @@
                     <a href="./braintumor">
                         <img src="../static/icons/braintumor.png" alt="Brain Tumor Icon">
                         <h5>Brain Tumor</h5>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 fade-in">
+                <div class="service-card">
+                    <a href="./breastcancer">
+                        <img src="../static/icons/breastcancer.png" alt="Breast Cancer Icon">
+                        <h5>Breast Cancer</h5>
+                    </a>
+                </div>
+            </div>
+             <div class="col-lg-3 col-md-4 col-sm-6 fade-in">
+                <div class="service-card">
+                    <a href="./alzheimer">
+                        <img src="../static/icons/alzheimer.png" alt="Alzheimer's Icon">
+                        <h5>Alzheimer's</h5>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 fade-in">
+                <div class="service-card">
+                    <a href="./pneumonia">
+                        <img src="../static/icons/pneumonia.png" alt="Pneumonia Icon">
+                        <h5>Pneumonia</h5>
                     </a>
                 </div>
             </div>
@@ -210,7 +241,7 @@
             <div class="row align-items-center">
                 <div class="col-md-6 fade-in">
                     <h3>AI in HealthCure</h3>
-                    <p>In today’s fast-paced healthcare environment, early detection of diseases is crucial. HealthCure is an AI-based diagnostic tool designed to detect diseases like heart disease, diabetes, and hypertension. It provides fast, accurate predictions using machine learning models and bridges the gap between clinical data and informed decision-making.</p>
+                    <p>In today’s fast-paced healthcare environment, early detection of diseases is crucial. HealthCure is an AI-based diagnostic tool designed to detect a range of conditions. It provides fast, accurate predictions using machine learning models and bridges the gap between clinical data and informed decision-making.</p>
                 </div>
                 <div class="col-md-6 fade-in">
                     <img src="../static/healthcure.png" alt="AI in Healthcare">
@@ -227,7 +258,7 @@
                 </div>
                 <div class="col-md-6 fade-in">
                     <h3>Why HealthCure</h3>
-                    <p>Provide Fast, AI – driven results using images or Health Data. Accessible via a Simple web Interface, even for non-tech users. Empowerment for Patients & Professionals. Efficiency & Scalability for Healthcare Systems. Trust, Security, and Continuous Improvement.</p>
+                    <p>Provide fast, AI-driven results using images or health data. Accessible via a simple web interface, even for non-tech users. Empowerment for patients & professionals. Efficiency & scalability for healthcare systems. Trust, security, and continuous improvement.</p>
                 </div>
             </div>
         </div>
