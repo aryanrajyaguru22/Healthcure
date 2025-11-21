@@ -23,3 +23,18 @@
 - __Jadeja Umang__ : Team Member  
 - __Patel Mahek__ : Team Member 
 - __Patel Princy__ : Team Member 
+
+# Project Run Steps:
+1. Install Anaconda
+2. Download Project Zip or Clone Project Git Repo
+3. Open Full Project Folder on VS code 
+4. In VS Code Open cmd(CTRL + J) (note : By default open PowerShell so first change PowerShell to cmd)
+5. In cmd enter the command that below mention:
+	1. conda create --name healthcure python=3.9
+		in that ask y/n in that gives : y
+	2. conda activate healthcure
+	3. pip install -r requirements.txt
+	4. python app.py
+
+Terminate Project:
+6. conda deactivate
