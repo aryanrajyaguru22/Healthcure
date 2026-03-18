@@ -74,20 +74,19 @@ A unified diagnosis platform covering 3 disease domains from a single system:
 ## 🚀 Getting Started
 
 ```bash
-# Clone the repo
-git clone https://github.com/aryanrajyaguru22/Healthcure.git
-cd Healthcare
 
-# Install dependencies
-pip install -r requirements.txt
-
-# Run backend
-python app.py
-
-# Frontend (separate terminal)
-cd frontend
-npm install
-npm start
+1. Install Anaconda
+2. Download Project Zip or Clone Project Git Repo
+3. Open Full Project Folder on VS code 
+4. In VS Code Open cmd(CTRL + J) (note : By default open PowerShell so first change PowerShell to cmd)
+5. In cmd enter the command that below mention:
+	1. conda create --name healthcure python=3.9
+		in that ask y/n in that gives : y
+	2. conda activate healthcure
+	3. pip install -r requirements.txt
+	4. python app.py
+Terminate Project:
+6. conda deactivate
 ```
 
 ---
